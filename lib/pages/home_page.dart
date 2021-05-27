@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     var searchURL = Uri.https('api.giphy.com', '/v1/gifs/search', {
       'api_key': 'xvvasi0Sgm7qVIyWxsbUTQp3Ge53WlBr',
       'q': _search,
-      'limit': '20',
+      'limit': '19',
       'offset': '$_offset',
       'rating': 'g',
       'lang': 'pt'
@@ -48,6 +48,14 @@ class _HomePageState extends State<HomePage> {
     return json.decode(response.body);
   }
 
+  int _getCount(List data) {
+    if (_search == null) {
+      return data.length;
+    } else {
+      return data.length + 1;
+    }
+  }
+
   Widget _createGifTable(BuildContext context, AsyncSnapshot snapshot) {
     return GridView.builder(
       padding: EdgeInsets.all(10.0),
@@ -56,15 +64,40 @@ class _HomePageState extends State<HomePage> {
         crossAxisSpacing: 10.0,
         mainAxisSpacing: 10.0,
       ),
-      itemCount: snapshot.data['data'].length,
+      itemCount: _getCount(snapshot.data['data']),
       itemBuilder: (context, index) {
-        return GestureDetector(
-          child: Image.network(
-            snapshot.data['data'][index]['images']['fixed_height']['url'],
-            height: 300.0,
-            fit: BoxFit.cover,
-          ),
-        );
+        if (_search == null || index < snapshot.data['data'].length) {
+          return GestureDetector(
+            child: Image.network(
+              snapshot.data['data'][index]['images']['fixed_height']['url'],
+              height: 300.0,
+              fit: BoxFit.cover,
+            ),
+          );
+        } else {
+          return Container(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _offset = _offset! + 19;
+                });
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.add, color: Colors.white, size: 70.0),
+                  Text(
+                    'Carregar mais...',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
       },
     );
   }
@@ -85,6 +118,12 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
+              onSubmitted: (value) {
+                setState(() {
+                  _search = value;
+                  _offset = 0;
+                });
+              },
               decoration: InputDecoration(
                 labelText: 'Pesquise aqui',
                 labelStyle: TextStyle(
