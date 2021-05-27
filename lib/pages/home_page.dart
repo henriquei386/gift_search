@@ -28,13 +28,13 @@ class _HomePageState extends State<HomePage> {
 
   Future<Map> _getGifs() async {
     var trendingURL = Uri.https('api.giphy.com', '/v1/gifs/trending', {
-      'api_key': 'xvvasi0Sgm7qVIyWxsbUTQp3Ge53WlBr',
+      'api_key': '',
       'limit': '20',
-      'rating': 'g'
+      'rating': 'g',
     });
 
     var searchURL = Uri.https('api.giphy.com', '/v1/gifs/search', {
-      'api_key': 'xvvasi0Sgm7qVIyWxsbUTQp3Ge53WlBr',
+      'api_key': '',
       'q': _search,
       'limit': '19',
       'offset': '$_offset',

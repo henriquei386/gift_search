@@ -1,16 +1,18 @@
-# gifsearch
+# Git Search
 
-A new Flutter project.
+Este é um projeto apenas para estudos.
+E para usálo crie uma Key e adicione no arquivo
+lib/pages/home_page.dart
+logo após a chave 'api_key'.
 
-## Getting Started
+Ex:
 
-This project is a starting point for a Flutter application.
+var trendingURL = Uri.https('api.giphy.com', '/v1/gifs/trending', {
+  'api_key': 'SUA API KEY deve ser inserida aqui!',
+  'limit': '20',
+  'rating': 'g',
+});
 
-A few resources to get you started if this is your first Flutter project:
+Api utilizada: https://giphy.com/
+Logo: https://developers.giphy.com/
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
