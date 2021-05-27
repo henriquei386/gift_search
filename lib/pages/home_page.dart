@@ -4,6 +4,7 @@ import 'package:gifsearch/pages/gif_page.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:share/share.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -76,6 +77,10 @@ class _HomePageState extends State<HomePage> {
                     builder: (context) => GifPage(snapshot.data['data'][index]),
                   ));
             },
+            onLongPress: () {
+              Share.share(snapshot.data['data'][index]['images']['fixed_height']
+                  ['url']);
+            },
             child: Image.network(
               snapshot.data['data'][index]['images']['fixed_height']['url'],
               height: 300.0,
@@ -139,17 +144,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.deepPurple,
+                    color: Colors.white,
                   ),
                 ),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.deepPurple,
+                    color: Colors.white,
                   ),
                 ),
               ),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.deepPurple),
+              style: TextStyle(color: Colors.white),
             ),
           ),
           Expanded(
@@ -165,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                       alignment: Alignment.center,
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                          Colors.deepPurple,
+                          Colors.white,
                         ),
                         strokeWidth: 5.0,
                       ),
