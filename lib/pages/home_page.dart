@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gifsearch/pages/gif_page.dart';
 
 import 'dart:convert';
 import 'dart:async';
@@ -68,6 +69,13 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (context, index) {
         if (_search == null || index < snapshot.data['data'].length) {
           return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GifPage(snapshot.data['data'][index]),
+                  ));
+            },
             child: Image.network(
               snapshot.data['data'][index]['images']['fixed_height']['url'],
               height: 300.0,
